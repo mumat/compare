@@ -2,3 +2,7 @@ debug
 
 # Generated ressources
 **/*-packr.go
+
+# Vendor
+vendor/*
+!vendor.json
