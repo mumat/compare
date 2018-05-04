@@ -48,3 +48,31 @@ type mockAssets string
 func (assets mockAssets) String(name string) string {
 	return string(assets)
 }
+
+type mockReporter struct {
+	err        error
+	title      string
+	onAddImage func(path, category, name string)
+}
+
+func (reporter *mockReporter) SetTitle(title string) {
+	reporter.title = title
+}
+
+func (reporter *mockReporter) AddImage(path string, category string, name string) {
+	reporter.onAddImage(path, category, name)
+}
+
+func (reporter *mockReporter) Flush() error {
+	return reporter.err
+}
+
+type mockWalker struct {
+	onWalk func(fn WalkFn)
+	err    error
+}
+
+func (walker *mockWalker) Walk(path string, fn WalkFn) error {
+	walker.onWalk(fn)
+	return walker.err
+}
