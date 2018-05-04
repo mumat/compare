@@ -1,6 +1,9 @@
-# Compare It
+# Compare
 
 Compare creates a static report based on a given directory structure containing images. The images are presented by their category, these correspond to the directory that they were found. Currently only the directory structure shown below is supported, deeper nesting as well as files in the main directory will be ignored.
+
+![Overview](media/overview.png?raw=true "Comparison Overview")
+![Detail](media/detail.png?raw=true "Comparison Detail")
 
 ## Usage
 
