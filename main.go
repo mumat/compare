@@ -19,6 +19,10 @@ var reporters []string
 var htmlFile string
 var htmlTemplate string
 
+var version string
+var date string
+var hash string
+
 var cmd = &cobra.Command{
 	Use:   "compare [image directory]",
 	Short: "Compare is a static image comparison generator",
@@ -26,8 +30,16 @@ var cmd = &cobra.Command{
 	Run:   run,
 }
 
+var versionCmd = &cobra.Command{
+	Use:   "version",
+	Short: "Print version information",
+	Run:   printVersion,
+}
+
 func init() {
 	assets = packr.NewBox("./assets")
+
+	cmd.AddCommand(versionCmd)
 
 	cmd.Flags().StringVarP(&title, "title", "t", "Compare", "Title of the report")
 
@@ -48,6 +60,7 @@ func main() {
 func run(cmd *cobra.Command, args []string) {
 	comparer := NewComparer()
 	comparer.SetTitle(title)
+	comparer.SetVersionString(fmt.Sprintf("v%s", version))
 	filewalker, err := getWalker(walker)
 	if err != nil {
 		log.Fatal(err)
@@ -63,6 +76,10 @@ func run(cmd *cobra.Command, args []string) {
 	if err := comparer.Compare(args[0]); err != nil {
 		log.Fatal(err)
 	}
+}
+
+func printVersion(cmd *cobra.Command, args []string) {
+	fmt.Printf("Compare v%s (built: %s commit: %s)\n", version, date, hash)
 }
 
 func getReporter(name string) (Reporter, error) {

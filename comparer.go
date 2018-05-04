@@ -12,7 +12,8 @@ type Comparer struct {
 	filewalker FileWalker
 	reporters  []Reporter
 
-	title string
+	title   string
+	version string
 }
 
 // NewComparer creates a new Comparer
@@ -25,6 +26,11 @@ func NewComparer() *Comparer {
 // SetTitle sets the title on add reporters
 func (comparer *Comparer) SetTitle(title string) {
 	comparer.title = title
+}
+
+// SetVersionString sets build version information
+func (comparer *Comparer) SetVersionString(version string) {
+	comparer.version = version
 }
 
 // AddReporter adds a reporter that should be used for report generation
@@ -53,6 +59,7 @@ func (comparer *Comparer) Compare(path string) error {
 func (comparer *Comparer) setTitle(title string) {
 	for _, reporter := range comparer.reporters {
 		reporter.SetTitle(title)
+		reporter.SetVersionString(comparer.version)
 	}
 }
 

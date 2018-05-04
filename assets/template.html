@@ -83,6 +83,14 @@
 				color: #ffffff;
 				padding: 10px 0;
 			}
+			.project-link {
+				padding: 1em;
+				color: #646464
+			}
+			.project-link > a {
+				color: inherit;
+				text-decoration: none;
+			}
 			@media only screen and (max-width: 700px){
 				.modal-image {
 					width: 100%;
@@ -113,6 +121,9 @@
 			<hr>
 		</div>
 		{{ end }}
+		<div class="project-link">
+			<a href="https://github.com/mumat/compare">Compare {{ .Version }}</a>
+		</div>
 		<div id="imageModal" class="modal">
 			<img class="modal-image" id="modalImage">
 			<h4 class="modal-caption" id="modalCaption"></h4>

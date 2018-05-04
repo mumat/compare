@@ -59,6 +59,8 @@ func (reporter *mockReporter) SetTitle(title string) {
 	reporter.title = title
 }
 
+func (reporter *mockReporter) SetVersionString(version string) {}
+
 func (reporter *mockReporter) AddImage(path string, category string, name string) {
 	reporter.onAddImage(path, category, name)
 }

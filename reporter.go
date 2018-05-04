@@ -10,6 +10,7 @@ import (
 // Reporter represents a report builder
 type Reporter interface {
 	SetTitle(title string)
+	SetVersionString(version string)
 	AddImage(path string, category string, name string)
 	Flush() error
 }
@@ -17,6 +18,7 @@ type Reporter interface {
 // Report represents a comparison report
 type Report struct {
 	Title      string
+	Version    string
 	Categories []*Category
 }
 
@@ -58,6 +60,11 @@ func NewHTMLReporter(assets Assets, writer io.Writer, template string) *HTMLRepo
 // SetTitle sets the main title of the Report
 func (reporter *HTMLReporter) SetTitle(title string) {
 	reporter.report.Title = title
+}
+
+// SetVersionString set build version information
+func (reporter *HTMLReporter) SetVersionString(version string) {
+	reporter.report.Version = version
 }
 
 // AddImage adds a new image with the given name to the report

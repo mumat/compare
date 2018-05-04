@@ -1,5 +1,8 @@
 debug
 
+# Binaries
+release
+
 # Generated ressources
 **/*-packr.go
 
