@@ -1,4 +1,11 @@
 debug
 
+# Binaries
+release
+
 # Generated ressources
 **/*-packr.go
+
+# Vendor
+vendor/*
+!vendor.json
