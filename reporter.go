@@ -3,6 +3,7 @@ package main
 import (
 	"html/template"
 	"io"
+	"path/filepath"
 	"sort"
 	"strings"
 )
@@ -81,8 +82,11 @@ func (reporter *HTMLReporter) AddImage(path string, category string, name string
 // Flush generates the entire report writing it to the given writer
 func (reporter *HTMLReporter) Flush() error {
 	html := reporter.assets.String(reporter.template)
-	tmpl := template.Must(template.New("base").Parse(html))
 	reporter.report.Categories = reporter.getSortedCategories()
+	tmpl, err := template.New("base").Funcs(reporter.getFuncMap()).Parse(html)
+	if err != nil {
+		return err
+	}
 	return tmpl.Execute(reporter.writer, reporter.report)
 }
 
@@ -106,6 +110,14 @@ func (reporter *HTMLReporter) getCategory(title string) *Category {
 		reporter.categories[title] = cat
 	}
 	return cat
+}
+
+func (reporter *HTMLReporter) getFuncMap() template.FuncMap {
+	return template.FuncMap{
+		"path": func(path string) template.HTML {
+			return template.HTML(filepath.ToSlash(path))
+		},
+	}
 }
 
 func (by byTitle) Len() int           { return len(by) }

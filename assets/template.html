@@ -113,7 +113,7 @@
 					<img src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
 						class="image lazyload"
 						alt="{{ .Name }}"
-						data-src="{{ .Path }}">
+						data-src="{{ .Path | path }}">
 					<h4>{{ .Name }}</h4>
 				</div>
 				{{ end }}
